@@ -1,0 +1,61 @@
+body {
+  padding: 0;
+  margin: 0;
+  background: #344953;
+  height: 100vh;
+  display: flex;
+  align-items: center; /* 定义flex子元素在flex容器的当前行的侧轴(纵轴)对齐方式 */
+  justify-content: center; /* 主轴(x轴)的排列方式 */
+}
+
+.loading {
+  width: 200px;
+  height: 200px;
+  box-sizing: border-box; /* 包含了border和padding的尺寸 */
+  border-radius: 50%; /* 在border有厚度的情况下，这样会形成一个中间厚，两边很窄的圆 */
+  border-top: 10px solid #e74c3c;
+  position: relative;
+  animation: rotate 2s linear infinite;
+}
+
+.loading::before,
+.loading::after {
+  content: '';
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 0;
+  top: -10px;
+  border-radius: 50%;
+}
+
+.loading::before {
+  border-top: 10px solid #e67e22;
+  transform: rotate(120deg);
+}
+
+.loading::after {
+  border-top: 10px solid #3498db;
+  transform: rotate(240deg);
+}
+
+.loading span {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  line-height: 200px;
+  animation: loading 2s linear infinite;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(-360deg);
+  }
+}
