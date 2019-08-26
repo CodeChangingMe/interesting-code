@@ -1,0 +1,109 @@
+// 实现自己的call函数
+Function.prototype.myCall = function(context) {
+  context = context || window;
+  // this指向当前函数对象
+  // ! 如果context对象本身也有fn属性，那就可能存在冲突，可以用Symbol对象，见myCall2
+  context.fn = this;
+  let args = [...arguments].slice(1);
+  // 调用当前函数时，函数中的this指向context。
+  // 本质: 对象.方法()中，this的指向为该对象
+  let result = context.fn([...args]);
+  return result;
+};
+
+Function.prototype.myCall2 = function(context) {
+  context = context || window;
+  const fn = Symbol('fn');
+  context[fn] = this;
+
+  let args = [...arguments].slice(1);
+  let result = context[fn]([...args]);
+  return result;
+};
+
+Function.prototype.myApply = function(context) {
+  context = context || window;
+  const fn = Symbol('fn');
+  context[fn] = this;
+
+  let result;
+  if (arguments[1]) {
+    if (Array.isArray(arguments[1])) {
+      context[fn](...arguments[1]);
+    } else {
+      throw new TypeError('first parameter is not array');
+    }
+  } else {
+    result = context[fn]();
+  }
+};
+
+Function.prototype.myBind = function(context) {
+  // 预先设置一些参数
+  let args = [...arguments].slice(1);
+  let _this = this;
+  return function() {
+    _this.apply(context, args.concat([...arguments]));
+  };
+};
+
+// 用于这个构造函数的prototype是否出现在原型链的中的其中一个位置
+function myInstanceof(left, right) {
+  let left = left.__prototype__;
+  while (left) {
+    if (left === right) {
+      return true;
+    }
+    left = left.__prototype__;
+  }
+  return false;
+}
+
+// 创建一个对象，并且把传入得对象作为原型
+// 思路：用new得方式创建得对象，那我们把这个函数得prototype属性设置为入参即可
+function myCreate(obj) {
+  function f1() {}
+  f1.prototype = obj;
+  return new f1();
+}
+
+// 模拟new关键字创建对象，使用方式： myNew(fun)(arg1, arg2)
+function myNew(fn) {
+  return function() {
+    let obj = {
+      __prototype__: fn.prototype
+    };
+    ofn.call(obj, ...arguments);
+    return obj;
+  };
+}
+function fn(name, age) {
+  this.name = name;
+  this.age = age;
+}
+myNew(fn)('wulei', 24); // 使用示例
+
+// 浅拷贝,如果属性值是一个引用，拷贝后的属性值将指向那个应用
+let copy1 = { ...{ x: 1 } };
+let copy1 = Object.assign({}, { x: 1 });
+
+// 深拷贝
+let copy = JSON.parse(JSON.stringify({ x: { y: 1 } }));
+// 递归实现深拷贝
+function myDeepCopy(obj) {
+  let copyObj;
+  if (typeof obj === 'object') {
+    copyObj = obj instanceof Array ? [] : {};
+  } else {
+    return obj;
+  }
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const element = obj[key];
+      copyObj[i] = typeof element === 'object' ? myDeepCopy(element) : element;
+    }
+  }
+
+  return copyObj;
+}
