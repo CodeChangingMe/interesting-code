@@ -1,0 +1,16 @@
+.common {
+  display: inline-block;
+  position: relative;
+  background-color: bisque;
+  text-align: center;
+  padding-right: 5px;
+  transition: 2s;
+  box-sizing: border-box;
+  background-clip: content-box;
+}
+
+.wrapper {
+  height: 500px;
+  padding: 0px;
+  margin: 0px;
+}
