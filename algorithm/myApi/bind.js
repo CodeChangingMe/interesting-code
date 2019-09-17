@@ -99,9 +99,41 @@ function myDeepCopy(obj) {
   }
 
   for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      const element = obj[key];
-      copyObj[i] = typeof element === 'object' ? myDeepCopy(element) : element;
+    const element = obj[key];
+    copyObj[i] = typeof element === 'object' ? myDeepCopy(element) : element;
+  }
+
+  return copyObj;
+}
+// 广度优先遍历实现深拷贝 用队列实现广度优先，用栈实现深度优先
+function cloneDeepOfLoop(obj) {
+  let copyObj = {};
+  let queue = [];
+  let copyQueue = [];
+  queue.push(obj);
+  copyQueue.push(copyObj);
+  // 增加一个标记数组，保存遍历过程中所有的对象,如果发现重复的引用，则用之前的值，一次解决循环引用的问题
+  let visitedQueue = [];
+  let visitedCopyQueue = [];
+  while (queue.length) {
+    let element = queue.shift();
+    let copyElement = copyQueue.shift();
+    visitedQueue.push(element);
+    visitedCopyQueue.push(copyElement);
+    for (const key in element) {
+      const eleValue = element[key];
+      if (typeof eleValue === 'object') {
+        let index = visitedQueue.indexOf(eleValue);
+        if (index >= 0) {
+          copyElement[key] = visitedCopyQueue[index];
+        } else {
+          copyElement[key] = {};
+          copyQueue.push(copyElement[key]);
+          queue.push(eleValue);
+        }
+      } else {
+        copyElement[key] = eleValue;
+      }
     }
   }
 
