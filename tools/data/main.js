@@ -4,18 +4,22 @@
  * 超过一个小时，输出：n小时前；超过一天，输出：n天前；但超过一个星期，输出发布的准确时间
  */
 function main(timestamp) {
-  let currentTime = new Date().getTime();
+  const min = 1000 * 60;
+  const hour = 60 * min;
+  const day = 24 * hour;
+  const week = 7 * day;
+
+  const currentTime = Date.now();
   let diffTime = currentTime - timestamp;
-  let diffSecond = Math.ceil(diffTime / 1000);
-  if (diffSecond < 60) {
+  if (diffTime < min) {
     console.log('刚刚');
-  } else if (diffSecond < 3600) {
-    const minutes = Math.ceil(diffSecond / 60);
-    console.log(`${minutes}分钟前`);
-  } else if (diffSecond < 3600 * 24) {
-    const day = Math.ceil(diffSecond / 3600);
-    console.log(`${day}小时前`);
+  } else if (diffTime < hour) {
+    console.log(`${Math.ceil(diffTime / min)}分钟前`);
+  } else if (diffTime < day) {
+    console.log(`${Math.ceil(diffTime / hour)}小时前`);
+  } else if (diffTime < week) {
+    console.log(`${Math.ceil(diffTime / day)}天前`);
   } else {
-    console.log(new Date(currentTime));
+    console.log(new Date(currentTime).toLocaleString());
   }
 }
