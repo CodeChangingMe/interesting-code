@@ -1,0 +1,27 @@
+body {
+  padding: 0;
+  margin: 0;
+  background: #344953;
+  height: 100vh;
+  display: flex;
+  align-items: center; /* 定义flex子元素在flex容器的当前行的侧轴(纵轴)对齐方式 */
+  justify-content: center; /* 主轴(x轴)的排列方式 */
+}
+
+.loader {
+  width: 120px;
+  height: 120px;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

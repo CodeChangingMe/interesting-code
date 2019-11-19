@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Search Box</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <!-- 用label的for关联input的id的好处在于： -->
+    <!-- 1.单击关联的label来聚焦或者激活 input -->
+    <!-- 2.点击input时，获取的事件对象的srcElement和target中，也可以获取到label对象 -->
+    <input
+      type="checkbox"
+      name="timeType"
+      value="1"
+      id="value1"
+      checked="checked"
+      onchange="changeEventHandler(event)"
+    />
+    <label for="value1"></label>
+  </body>
+</html>
