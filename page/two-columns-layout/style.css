@@ -1,0 +1,21 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  background: #e84118;
+}
+
+.layout {
+  margin-top: 10px;
+}
+.layout div {
+  min-height: 100px;
+}
+
+.layout.float .left {
+  float: left;
+  width: 300px;
+  background-color: #48adff;
+}
+.layout.float .main {
+  background-color: #ff4344;
+}

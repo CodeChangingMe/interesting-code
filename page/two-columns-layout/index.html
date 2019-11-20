@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Search Box</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="layout float">
+      <article class="left-main">
+        <div class="left">左边</div>
+        <div class="main">
+          <h1>浮动两栏布局</h1>
+          <p>两栏布局的中间部分</p>
+          <p>两栏布局的中间部分</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="layout absolute">
+      <style>
+        .layout.absolute .left-main {
+          width: 100%;
+        }
+
+        .layout.absolute .left {
+          left: 0;
+          width: 300px;
+          background-color: #48adff;
+          position: absolute;
+        }
+
+        .layout.absolute .main {
+          /*默认是以正常文档流的方式来展现的*/
+          background-color: #ff4344;
+          margin-left: 300px;
+          right: 0;
+        }
+      </style>
+      <article class="left-main">
+        <div class="left"></div>
+        <div class="main">
+          <h1>绝对定位两栏布局</h1>
+          <p>两栏布局的中间部分</p>
+          <p>两栏布局的中间部分</p>
+        </div>
+      </article>
+    </section>
+
+    <!--3.flex布局的实现-->
+    <section class="layout flex">
+      <style>
+        .layout .left-main {
+          display: flex;
+        }
+    
+        .layout .left {
+          width: 300px;
+          background-color: #48adff;
+        }
+    
+        .layout .main {
+          flex: 1;
+          background-color: #ff4344;
+        }
+      </style>
+      <article class="left-main">
+        <div class="left"></div>
+        <div class="main">
+          <h1>flex两栏布局</h1>
+          <p>两栏布局的中间部分</p>
+          <p>两栏布局的中间部分</p>
+        </div>
+      </articl>
+  </body>
+</html>
