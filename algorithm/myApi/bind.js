@@ -29,16 +29,21 @@ Function.prototype.myApply = function(context) {
   let result;
   if (arguments[1]) {
     if (Array.isArray(arguments[1])) {
-      context[fn](...arguments[1]);
+      result = context[fn](...arguments[1]);
     } else {
       throw new TypeError('first parameter is not array');
     }
   } else {
     result = context[fn]();
   }
+
+  return result;
 };
 
 Function.prototype.myBind = function(context) {
+  if (typeof this !== 'function') {
+    throw new TypeError('not is function');
+  }
   // 预先设置一些参数
   let args = [...arguments].slice(1);
   let _this = this;
