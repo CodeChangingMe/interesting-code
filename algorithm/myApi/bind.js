@@ -55,8 +55,9 @@ Function.prototype.myBind = function(context) {
 // 用于这个构造函数的prototype是否出现在原型链的中的其中一个位置
 function myInstanceof(left, right) {
   let left = left.__prototype__;
+  let p = right.prototype;
   while (left) {
-    if (left === right) {
+    if (left === p) {
       return true;
     }
     left = left.__prototype__;
