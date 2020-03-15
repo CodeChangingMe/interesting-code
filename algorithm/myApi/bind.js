@@ -145,3 +145,42 @@ function cloneDeepOfLoop(obj) {
 
   return copyObj;
 }
+
+// 防抖函数: 在事件被触发n秒后，再执行，且如果n秒内被重复触发，则重新计时
+const myDebounceOfSetTimeout = (fn, delay) => {
+  let timer = null;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+};
+
+const myDebounceOfRequestAnimationFrams = (fn, delay) => {
+  let timer = null;
+  return (...args) => {
+    const time = Date.now();
+    cancelAnimationFrame(timer);
+    const callback = timestamp => {
+      if (timestamp - time >= delay) {
+        fn.apply(this, args);
+      } else {
+        timer = requestAnimationFrame(callback);
+      }
+    };
+    timer = requestAnimationFrame(callback);
+  };
+};
+
+// 节流函数。在n秒内，最多执行一次，后面会被忽略
+const throttle = (fn, delay) => {
+  let last = 0;
+  return (...args) => {
+    let cur = Date.now();
+    if (cur - last >= delay) {
+      fn.apply(this, arguments);
+      last = cur;
+    }
+  };
+};
