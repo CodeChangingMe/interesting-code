@@ -35,13 +35,13 @@ module.exports = class Applicaton {
 // 负责执行中间函数的函数
 function compose(middleware) {
   return (req, res) => {
-    // 返回一个promise
-    return dispatch(0);
     function dispatch(i) {
       let fn = middleware[i];
       if (!fn) return Promise.resolve(); // 若已经不存在了，直接返回一个resolved
       return Promise.resolve(fn(req, res, dispatch.bind(null, i + 1))); //bind(null, xx)传递一个函数，并预设入参
     }
+    // 返回一个promise
+    return dispatch(0);
   };
 }
 
